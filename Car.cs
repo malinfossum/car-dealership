@@ -1,6 +1,4 @@
 namespace CarDealership;
-
-// Uke 4 ParProg: a car in the dealership inventory
 public class Car
 {
     public string Make { get; }

@@ -1,6 +1,4 @@
 namespace CarDealership;
-
-// Uke 4 ParProg: entry point — wires up dealer with seed data, customer, and the UI
 public class Program
 {
     public static void Main(string[] args)

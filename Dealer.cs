@@ -1,6 +1,4 @@
 namespace CarDealership;
-
-// Uke 4 ParProg: the dealership — owns the inventory, can be queried, releases cars on sale
 public class Dealer
 {
     private readonly List<Car> _inventory = new();
@@ -18,7 +16,6 @@ public class Dealer
         _inventory.Add(car);
     }
 
-    // TODO: return cars built within an inclusive year range
     public List<Car> FindByYearRange(int minYear, int maxYear)
     {
         var result = new List<Car>();
@@ -33,15 +30,33 @@ public class Dealer
         return result;
     }
 
-    // TODO: return cars with mileage above or below the threshold (controlled by greaterThan)
     public List<Car> FindByMileage(int threshold, bool greaterThan)
     {
-        throw new NotImplementedException();
+        var result = new List<Car>();
+        foreach (var car in Inventory)
+        {
+            bool mileageMatches = greaterThan
+                ? car.Mileage > threshold
+                : car.Mileage < threshold;
+
+            if (mileageMatches)
+            {
+                result.Add(car);
+            }
+        }
+        return result;
     }
 
-    // TODO: remove the car with this registration number from the inventory and return it (null if not found)
     public Car? Release(string registrationNumber)
     {
-        throw new NotImplementedException();
+        foreach (var car in _inventory)
+        {
+            if (car.RegistrationNumber == registrationNumber)
+            {
+                _inventory.Remove(car);
+                return car;
+            }
+        }
+        return null;
     }
 }

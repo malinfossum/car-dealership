@@ -1,6 +1,4 @@
 namespace CarDealership;
-
-// Uke 4 ParProg: console UI — menu loop, dispatches to dealer/customer actions
 public class App
 {
     private readonly Dealer _dealer;
@@ -31,17 +29,13 @@ public class App
             switch (choice)
             {
                 case "1":
-                    // TODO: print every car in _dealer.Inventory
-                    foreach (var car in _dealer.Inventory) { car.PrintInfo(); }
+                    foreach (var car in _dealer.Inventory)
+                    {
+                        car.PrintInfo();
+                    }
                     break;
+
                 case "2":
-                    // TODO: ask the user for min and max year, then call _dealer.FindByYearRange and print the results
-                    //Console.WriteLine("Choose year min:");
-                    //var input = int.Parse(Console.ReadLine());
-                    //Console.WriteLine("Choose year max:");
-                    //var input2 = int.Parse(Console.ReadLine());
-                    //Console.ReadLine();
-                    //foreach (var car in _dealer.Inventory) { _dealer.FindByYearRange(input, input2); }
                     Console.Write("Min year: ");
                     int.TryParse(Console.ReadLine(), out int minYear);
                     Console.Write("Max year: ");
@@ -53,18 +47,50 @@ public class App
                         car.PrintInfo();
                     }
                     break;
+
                 case "3":
-                    // TODO: ask for a mileage threshold and whether to find over/under, then call _dealer.FindByMileage
-                    Console.WriteLine("(TODO: filter by mileage)");
+                    Console.Write("Mileage threshold (km): ");
+                    int.TryParse(Console.ReadLine(), out int threshold);
+
+                    Console.Write("Above threshold? (y/n): ");
+                    string answer = Console.ReadLine()?.Trim().ToLowerInvariant() ?? "";
+                    bool greaterThan = answer == "y";
+
+                    var mileageMatches = _dealer.FindByMileage(threshold, greaterThan);
+                    foreach (var car in mileageMatches)
+                    {
+                        car.PrintInfo();
+                    }
                     break;
+
                 case "4":
-                    // TODO: ask for a registration number, call _customer.Buy(_dealer, regNr), print success or failure
-                    Console.WriteLine("(TODO: buy a car)");
+                    Console.Write("Registration number: ");
+                    string regNr = Console.ReadLine()?.Trim() ?? "";
+
+                    bool shop = _customer.Buy(_dealer, regNr);
+                    if (shop)
+                    {
+                        Console.WriteLine($"Bought car {regNr}.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Sorry, {regNr} is not available.");
+                    }
                     break;
+
                 case "5":
-                    // TODO: print every car in _customer.OwnedCars
-                    Console.WriteLine("(TODO: view my cars)");
+                    if (_customer.OwnedCars.Count == 0)
+                    {
+                        Console.WriteLine("You don't own any cars yet.");
+                        break;
+                    }
+
+                    foreach (var car in _customer.OwnedCars)
+                    {
+                        car.PrintInfo();
+                    }
                     break;
+
                 case "Q":
                     return;
                 default:

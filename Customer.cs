@@ -1,6 +1,4 @@
 namespace CarDealership;
-
-// Uke 4 ParProg: a customer who can buy cars from the dealer
 public class Customer
 {
     private readonly List<Car> _ownedCars = new();
@@ -13,9 +11,15 @@ public class Customer
         Name = name;
     }
 
-    // TODO: buy a car from the dealer — ask the dealer to Release it, then add the returned car to _ownedCars
     public bool Buy(Dealer dealer, string registrationNumber)
     {
-        throw new NotImplementedException();
+        Car? car = dealer.Release(registrationNumber);
+        if (car == null)
+        {
+            return false;
+        }
+
+        _ownedCars.Add(car);
+        return true;
     }
 }
