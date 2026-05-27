@@ -21,7 +21,16 @@ public class Dealer
     // TODO: return cars built within an inclusive year range
     public List<Car> FindByYearRange(int minYear, int maxYear)
     {
-        throw new NotImplementedException();
+        var result = new List<Car>();
+        foreach (var car in Inventory)
+        {
+            if (minYear <= car.Year && maxYear >= car.Year)
+            {
+                result.Add(car);
+            }
+        }
+
+        return result;
     }
 
     // TODO: return cars with mileage above or below the threshold (controlled by greaterThan)

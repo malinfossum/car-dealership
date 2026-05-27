@@ -32,11 +32,26 @@ public class App
             {
                 case "1":
                     // TODO: print every car in _dealer.Inventory
-                    Console.WriteLine("(TODO: view inventory)");
+                    foreach (var car in _dealer.Inventory) { car.PrintInfo(); }
                     break;
                 case "2":
                     // TODO: ask the user for min and max year, then call _dealer.FindByYearRange and print the results
-                    Console.WriteLine("(TODO: filter by year range)");
+                    //Console.WriteLine("Choose year min:");
+                    //var input = int.Parse(Console.ReadLine());
+                    //Console.WriteLine("Choose year max:");
+                    //var input2 = int.Parse(Console.ReadLine());
+                    //Console.ReadLine();
+                    //foreach (var car in _dealer.Inventory) { _dealer.FindByYearRange(input, input2); }
+                    Console.Write("Min year: ");
+                    int.TryParse(Console.ReadLine(), out int minYear);
+                    Console.Write("Max year: ");
+                    int.TryParse(Console.ReadLine(), out int maxYear);
+
+                    var matches = _dealer.FindByYearRange(minYear, maxYear);
+                    foreach (var car in matches)
+                    {
+                        car.PrintInfo();
+                    }
                     break;
                 case "3":
                     // TODO: ask for a mileage threshold and whether to find over/under, then call _dealer.FindByMileage
